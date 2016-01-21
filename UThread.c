@@ -1,9 +1,7 @@
-#include <stdio.h>
-#include <ucontext.h>
-#include <unistd.h>
+#include "UThread.h"
 
-
-int main() {
+int main()
+{
 
     return 0;
 }
