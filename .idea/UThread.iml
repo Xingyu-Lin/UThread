@@ -3,7 +3,9 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/UThread.c" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/UThread.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/UThread.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test.cpp" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
