@@ -6,24 +6,21 @@
 #ifndef UTHREAD_H_INCLUDED
 #define UTHREAD_H_INCLUDED
 #include <stdio.h>
+#include <string.h>
 #include <ucontext.h>
 #include <unistd.h>
+#include <signal.h>
+#include <sys/time.h>
 
 #define UTHREAD_MAX_THREAD 100
-
-#define UTHREAD_STATUS_FREE  	        0
-#define UTHREAD_STATUS_RUNNING 	        1
-#define UTHREAD_STATUS_RUNNALBE 	    2
-#define UTHREAD_STATUS_SUSPEND 		    3
-
 #define DEFAULT_STACK_SIZE 2048
+
+//Length of the time slice for the RR scheduler, in us
+#define TIME_SLICE 500000
 
 typedef unsigned int uint;
 
 typedef void (*Fun) (void* arg);
-
-// initialize for user thread library
-void uthread_init();
 
 //Create a thread.
 //tid: return id for the thread, scheduler: assigned scheduler,
@@ -39,4 +36,10 @@ void uthread_runall();
 //return the ID of the currently running thread
 uint uthread_self();
 
+//yield the currently running thread
+//if the scheduler is running, nothing will happen
+void uthread_yield();
+
+//suspend the currently running thread until the thread numbered tid finishes
+void uthread_join(uint tid);
 #endif

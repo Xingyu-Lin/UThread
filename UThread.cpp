@@ -4,7 +4,6 @@
 #define FREE 0
 #define RUNNING 1
 #define RUNNABLE 2
-#define SUSPEND 3
 
 //User thread control block
 typedef struct uthread_t
@@ -50,17 +49,12 @@ int uthread_create(uint* tid, Fun func, void* arg)
     if (i == UTHREAD_MAX_THREAD)
         return -1;  // no currently available threads
     *tid = i;
-    printf("tid: %u\n", *tid);
+    printf("thread tid %u created\n", *tid);
     uthread_make(&thread_pool[i]);
     thread_pool[i].context.uc_link = &thread_sched.context;
     thread_pool[i].arg = arg;
     makecontext(&thread_pool[i].context, (void (*)(void)) uthread_wrapper, 3, func, arg, &thread_pool[i].status);
     return 0;
-}
-
-void uthread_yield()
-{
-
 }
 
 // A simple preemptive, round robin scheduler
@@ -86,13 +80,56 @@ static void scheduler()
         if (!thread_exist) break; //schedule finished
     }
     printf("scheduler finsihed\n");
-    while (1);
 }
+
+void uthread_yield()
+{
+    swapcontext(&thread_pool[uthread_self()].context, &thread_sched.context);
+}
+
+void uthread_join(uint tid)
+{
+    while (thread_pool[tid].status != FREE)
+        uthread_yield();
+}
+
+static bool initialized = false;
+static itimerval tick;
+
+static void handler(int sig) { uthread_yield(); }
+
+static void uthread_init()  //Set the time alarm and handler
+{
+    initialized = true;
+    signal(SIGALRM, handler);
+    memset(&tick, 0, sizeof(tick));
+}
+
+bool finish_all= false; // check if all threads have all finished
+static ucontext_t ret_context;
 
 void uthread_runall()
 {
+    if (!initialized) uthread_init();
+    finish_all = false;
+    getcontext(&ret_context);
+    if (finish_all) return;
+    finish_all = true;
+
+    tick.it_value.tv_sec = 1;
+    tick.it_value.tv_usec = 0;
+    tick.it_interval.tv_sec = 0;
+    tick.it_interval.tv_usec = TIME_SLICE;
+
+    int res = setitimer(ITIMER_REAL, &tick, NULL);
+    if (res != 0)
+    {
+        printf("set timer failed\n");
+    };
+
     uthread_make(&thread_sched);
-    //thread_sched.context.uc_link = &thread_sched.context;
+    thread_sched.context.uc_link = &ret_context;
     makecontext(&thread_sched.context, (void (*)(void)) scheduler, 0);
+
     setcontext(&thread_sched.context);
 }

@@ -7,16 +7,21 @@
 
 void print(void* arg)
 {
-    printf("Hello from thread number %u\n", uthread_self());
+    while (1)
+    {
+        printf("Hello from thread number %u\n", uthread_self());
+        sleep(1);
+        break;
+    }
 }
 
 int main()
 {
-    for (int i=0; i<10; ++i)
+    for (int i=0; i<5; ++i)
     {
         uint tid;
         uthread_create(&tid, print, NULL);
     }
     uthread_runall();
-    return 0;
+    printf("Main: first round finished\n");
 }
