@@ -10,8 +10,7 @@ void print(void* arg)
     while (1)
     {
         printf("Hello from thread number %u\n", uthread_self());
-        sleep(1);
-        break;
+        sleep(2);
     }
 }
 

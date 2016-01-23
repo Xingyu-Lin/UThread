@@ -26,7 +26,7 @@ uint uthread_self()
 static void uthread_wrapper(Fun func, void* arg, uint* status)
 {
     func(arg);
-    printf("Thread reaped\n");
+    printf("Thread %u reaped \n",uthread_self());
     *status = FREE;
 }
 
@@ -84,6 +84,7 @@ static void scheduler()
 
 void uthread_yield()
 {
+    thread_pool[uthread_self()].status = RUNNABLE;
     swapcontext(&thread_pool[uthread_self()].context, &thread_sched.context);
 }
 
