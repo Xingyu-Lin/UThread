@@ -26,7 +26,7 @@ uint uthread_self()
 static void uthread_wrapper(Fun func, void* arg, uint* status)
 {
     func(arg);
-    printf("Thread %u reaped \n",uthread_self());
+    //printf("Thread %u reaped \n",uthread_self());
     *status = FREE;
 }
 
