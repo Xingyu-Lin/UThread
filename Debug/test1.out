@@ -1,0 +1,23 @@
+test1 started
+thread tid 0 created
+thread tid 1 created
+thread tid 2 created
+thread tid 3 created
+thread tid 4 created
+Hello from thread number 0
+Hello from thread number 1
+Hello from thread number 2
+Hello from thread number 3
+Hello from thread number 4
+Hello from thread number 0
+Hello from thread number 1
+Hello from thread number 2
+Hello from thread number 3
+Hello from thread number 4
+Hello from thread number 0
+Hello from thread number 1
+Hello from thread number 2
+Hello from thread number 3
+Hello from thread number 4
+scheduler finsihed
+test1 finished

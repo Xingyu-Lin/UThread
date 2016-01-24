@@ -1,3 +1,8 @@
+/*
+ * Created by Xingyu Lin at Jan 21, 2016
+ * Student ID: 1300012782
+ * */
+
 #include "UThread.h"
 
 // possible status for each thread
@@ -117,6 +122,7 @@ void uthread_runall()
     if (finish_all) return;
     finish_all = true;
 
+    // set the time period to send a signal
     tick.it_value.tv_sec = 1;
     tick.it_value.tv_usec = 0;
     tick.it_interval.tv_sec = 0;

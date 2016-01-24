@@ -1,0 +1,23 @@
+test2 started
+thread tid 0 created
+thread tid 1 created
+thread tid 2 created
+thread tid 3 created
+thread tid 4 created
+thread tid 5 created
+thread tid 6 created
+thread tid 7 created
+thread tid 8 created
+thread tid 9 created
+Thread 5: How are you?
+Thread 9: How are you?
+Answer for thread 5: I am fine, thank you and you?
+Answer for thread 9: I am fine, thank you and you?
+Thread 8: How are you?
+Answer for thread 8: I am fine, thank you and you?
+Thread 6: How are you?
+Answer for thread 6: I am fine, thank you and you?
+Thread 7: How are you?
+Answer for thread 7: I am fine, thank you and you?
+scheduler finsihed
+test2 finished

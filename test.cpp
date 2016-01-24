@@ -9,7 +9,8 @@
 
 void print(void* arg)
 {
-    while (1)
+    int round = 3;
+    while (round--)
     {
         printf("Hello from thread number %u\n", uthread_self());
         sleep(2);
@@ -70,6 +71,7 @@ void test2()
 
 int main()
 {
-    test1();
+    freopen("test2.out", "w", stdout);
+    //test1();
     test2();
 }
